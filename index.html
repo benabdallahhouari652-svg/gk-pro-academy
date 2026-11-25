@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>GK PRO 3IN1 | Global Goalkeeper Academy</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">GK</div>
+      <div>
+        <div class="brand-title">GK PRO 3IN1</div>
+        <div class="brand-sub" data-i18n="brandSub">أكاديمية حراس المرمى العالمية 3×1</div>
+      </div>
+    </div>
+    <button class="nav-item active" data-page="home" onclick="goPage('home')">🏠 <span data-i18n="navHome">الرئيسية</span></button>
+    <button class="nav-item" data-page="training" onclick="goPage('training')">🧤 <span data-i18n="navTraining">التدريب</span></button>
+    <button class="nav-item" data-page="tactical" onclick="goPage('tactical')">📐 <span data-i18n="navTactical">التكتيك</span></button>
+    <button class="nav-item" data-page="video" onclick="goPage('video')">🎥 <span data-i18n="navVideo">الفيديو</span></button>
+    <button class="nav-item" data-page="perf" onclick="goPage('perf')">📊 <span data-i18n="navPerf">الأداء</span></button>
+    <button class="nav-item" data-page="coach" onclick="goPage('coach')">👨‍🏫 <span data-i18n="navCoach">المدرب</span></button>
+  </aside>
+
+  <div class="main-col">
+    <header class="topbar">
+      <div class="track-pills">
+        <button class="track-pill" data-track="11" onclick="setTrack('11')" data-i18n="t11">⚽ عادي 11</button>
+        <button class="track-pill active" data-track="7" onclick="setTrack('7')" data-i18n="t7">🦿 مبتور 7</button>
+        <button class="track-pill" data-track="5" onclick="setTrack('5')" data-i18n="t5">🥅 صالات 5</button>
+      </div>
+      <div class="top-controls">
+        <div class="lang-group">
+          <button data-lang="ar" class="active" onclick="setLang('ar')">AR</button>
+          <button data-lang="en" onclick="setLang('en')">EN</button>
+          <button data-lang="fr" onclick="setLang('fr')">FR</button>
+        </div>
+        <button class="ctrl-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Theme">☀️</button>
+      </div>
+    </header>
+
+    <main class="content">
+      <!-- HOME -->
+      <section id="view-home" class="view">
+        <div class="hero">
+          <div>
+            <div class="badge-tag" data-i18n="heroBadge">منهج عالمي 3 في 1 · عادي + مبتورين + صالات</div>
+            <h1 data-i18n="heroTitle">منصة تدريب وتطوير حراس المرمى الاحترافية</h1>
+            <p data-i18n="heroDesc">أول أكاديمية رقمية متكاملة تجمع حراسة المرمى في كرة القدم (11)، كرة القدم لمبتوري الأطراف (7)، وكرة الصالات (5) مع تحليل فيديو، لوحة تكتيكية، وتقييم رادار.</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button class="btn btn-primary" onclick="goPage('training')" data-i18n="ctaStart">ابدأ التدريب الآن</button>
+              <button class="btn" onclick="goPage('coach')" data-i18n="ctaCoach">استوديو المدرب</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-4" style="margin-bottom:18px">
+          <div class="card"><div class="stat-num" id="st-drills">4</div><small data-i18n="statDrills">تمارين متخصصة</small></div>
+          <div class="card"><div class="stat-num" id="st-points">0</div><small data-i18n="statPoints">نقاط الإنجاز</small></div>
+          <div class="card"><div class="stat-num" id="st-done">0</div><small data-i18n="statDone">تمارين منجزة</small></div>
+          <div class="card"><div class="stat-num" id="st-mode" style="font-size:18px">مبتور 7</div><small data-i18n="statMode">المسار النشط</small></div>
+        </div>
+
+        <div class="card" id="track-rules-card"></div>
+        <div class="card" id="founder-card" style="margin-top:18px"></div>
+      </section>
+
+      <!-- TRAINING -->
+      <section id="view-training" class="view hidden">
+        <div class="filters">
+          <input id="drill-search" class="search-input" style="max-width:300px" oninput="onSearchDrills(this.value)" placeholder="🔍 ابحث عن تمرين...">
+          <button class="filter-chip age-chip active" onclick="setAgeFilter('all', this)" data-i18n="all">الكل</button>
+          <button class="filter-chip age-chip" onclick="setAgeFilter('8-12', this)">8-12</button>
+          <button class="filter-chip age-chip" onclick="setAgeFilter('13-16', this)">13-16</button>
+          <button class="filter-chip age-chip" onclick="setAgeFilter('17-18', this)">17-18</button>
+          <button class="filter-chip age-chip" onclick="setAgeFilter('senior', this)">Senior</button>
+          <button class="filter-chip" onclick="toggleFavFilter(this)" data-i18n="favOnly">⭐ المفضلة</button>
+        </div>
+        <div id="drills-list" class="grid-2"></div>
+      </section>
+
+      <!-- TACTICAL -->
+      <section id="view-tactical" class="view hidden">
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px">
+            <h3 style="margin:0" data-i18n="tacTitle">📐 اللوحة التكتيكية التفاعلية</h3>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
+              <button class="btn btn-sm" onclick="TacticalModule.undo()" data-i18n="tacUndo">↩️ تراجع</button>
+              <button class="btn btn-sm" onclick="TacticalModule.clear()" data-i18n="tacClear">🗑️ مسح</button>
+              <button class="btn btn-sm btn-primary" onclick="TacticalModule.exportPng()" data-i18n="tacExport">📸 تصدير PNG</button>
+            </div>
+          </div>
+          <div class="filters">
+            <button class="btn btn-sm" onclick="TacticalModule.addMarker('gk')">🧤</button>
+            <button class="btn btn-sm" onclick="TacticalModule.addMarker('mate')">🔵</button>
+            <button class="btn btn-sm" onclick="TacticalModule.addMarker('opp')">❌</button>
+            <button class="btn btn-sm" onclick="TacticalModule.addMarker('ball')">⚽</button>
+            <button class="btn btn-sm" onclick="TacticalModule.addMarker('cone')">🔶</button>
+            <button class="btn btn-sm" onclick="TacticalModule.addMarker('goal')">🥅</button>
+            <button class="btn btn-sm tac-tool active" onclick="TacticalModule.setTool('run', this)">🏃</button>
+            <button class="btn btn-sm tac-tool" onclick="TacticalModule.setTool('pass', this)">🎯</button>
+            <button class="btn btn-sm tac-col active" style="background:#B8FF2E;color:#000" onclick="TacticalModule.setColor('lime', this)">●</button>
+            <button class="btn btn-sm tac-col" style="background:#3B82F6;color:#fff" onclick="TacticalModule.setColor('blue', this)">●</button>
+            <button class="btn btn-sm tac-col" style="background:#EF4444;color:#fff" onclick="TacticalModule.setColor('red', this)">●</button>
+            <button class="btn btn-sm tac-col" style="background:#FACC15;color:#000" onclick="TacticalModule.setColor('yellow', this)">●</button>
+          </div>
+          <div class="pitch" id="tac-pitch">
+            <div class="pitch-mid"></div><div class="pitch-circle"></div>
+            <div class="pitch-box-l"></div><div class="pitch-box-r"></div>
+            <svg id="tactical-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <defs>
+                <marker id="arr-lime" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#B8FF2E"/></marker>
+                <marker id="arr-blue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#3B82F6"/></marker>
+                <marker id="arr-red" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#EF4444"/></marker>
+                <marker id="arr-yellow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#FACC15"/></marker>
+                <marker id="arr-white" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#FFFFFF"/></marker>
+              </defs>
+              <g id="tac-arrows"></g>
+            </svg>
+            <div id="tac-markers"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIDEO LAB -->
+      <section id="view-video" class="view hidden">
+        <div class="card">
+          <h3 data-i18n="vidTitle">🎥 استوديو تحليل الفيديو</h3>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+            <button class="btn btn-primary" onclick="VideoModule.toggleCam()" data-i18n="vidLive">📷 كاميرا مباشرة</button>
+            <input type="file" id="vid-file" accept="video/*" class="hidden" onchange="VideoModule.loadFile(event)">
+            <button class="btn" onclick="document.getElementById('vid-file').click()" data-i18n="vidUpload">📁 رفع فيديو للتحليل</button>
+          </div>
+          <div class="video-stage">
+            <video id="vid-player" playsinline></video>
+            <canvas id="vid-canvas"></canvas>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+            <button class="btn btn-sm vid-spd" onclick="VideoModule.setSpeed(0.25, this)">0.25x</button>
+            <button class="btn btn-sm vid-spd" onclick="VideoModule.setSpeed(0.5, this)">0.5x</button>
+            <button class="btn btn-sm vid-spd active" onclick="VideoModule.setSpeed(1, this)">1x</button>
+            <button class="btn btn-sm vid-spd" onclick="VideoModule.setSpeed(1.5, this)">1.5x</button>
+            <button class="btn btn-sm" onclick="VideoModule.step(-0.04)">⏮ -1f</button>
+            <button class="btn btn-sm" onclick="VideoModule.step(0.04)">⏭ +1f</button>
+            <button class="btn btn-sm" onclick="VideoModule.toggleDraw(this)" data-i18n="vidDraw">✏️ رسم على الإطار</button>
+            <button class="btn btn-sm" onclick="VideoModule.clearDraw()">🗑️</button>
+            <button class="btn btn-sm btn-primary" onclick="VideoModule.snapshot()" data-i18n="vidSnap">📸 حفظ لقطة</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- PERFORMANCE -->
+      <section id="view-perf" class="view hidden">
+        <div class="grid-2">
+          <div class="card">
+            <h3 data-i18n="perfTitle">📊 مركز الأداء والتقييم (Radar)</h3>
+            <div style="margin-bottom:10px;font-weight:800;color:var(--accent)" id="radar-score">6.7 / 10</div>
+            <div class="radar-wrap">
+              <svg id="radar-svg" viewBox="0 0 280 260" style="width:100%;max-width:280px"></svg>
+              <div>
+                <div id="radar-sliders"></div>
+                <button class="btn btn-primary" style="width:100%;margin-top:8px" onclick="RadarModule.saveSnapshot()" data-i18n="saveEval">💾 حفظ التقييم</button>
+              </div>
+            </div>
+            <div id="radar-history" style="margin-top:12px"></div>
+          </div>
+
+          <div class="card">
+            <h3 data-i18n="wellnessTitle">💚 جاهزية اليوم (Wellness)</h3>
+            <div style="display:grid;gap:10px;margin:10px 0">
+              <select id="w-sleep" class="input"><option value="5">Sleep: 5/5</option><option value="4" selected>Sleep: 4/5</option><option value="3">Sleep: 3/5</option><option value="2">Sleep: 2/5</option></select>
+              <select id="w-energy" class="input"><option value="5">Energy: 5/5</option><option value="4" selected>Energy: 4/5</option><option value="3">Energy: 3/5</option><option value="2">Energy: 2/5</option></select>
+              <select id="w-pain" class="input"><option value="none">No Pain</option><option value="mild">Mild Soreness</option><option value="pain">Pain / Caution</option></select>
+              <button class="btn btn-primary" onclick="RadarModule.saveWellness()" data-i18n="saveWell">تسجيل الجاهزية</button>
+              <div id="w-result" style="padding:10px;background:var(--surface-2);border-radius:10px;text-align:center">—</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COACH STUDIO -->
+      <section id="view-coach" class="view hidden">
+        <div class="grid-2">
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+              <h3 style="margin:0" data-i18n="coachTitle">👨‍🏫 استوديو المدرب الاحترافي</h3>
+              <button class="btn btn-sm btn-primary" onclick="CoachModule.openTimer('Pitch Timer')" data-i18n="openTimer">⏱ مؤقت ميداني</button>
+            </div>
+            <div style="display:flex;gap:8px;margin-bottom:10px">
+              <select id="cs-drill-sel" class="input"></select>
+              <input id="cs-mins" type="number" class="input" value="15" style="max-width:80px">
+            </div>
+            <div style="display:flex;gap:8px;margin-bottom:8px">
+              <button class="btn btn-primary" style="flex:1" onclick="CoachModule.addDrill()" data-i18n="addDrill">➕ إضافة للحصة</button>
+              <button class="btn" onclick="CoachModule.copyPlan()" data-i18n="copyPlan">📋 نسخ خطة الحصة</button>
+            </div>
+            <div style="font-size:13px;color:var(--accent);font-weight:800">Total: <span id="cs-total">0 min</span></div>
+            <div id="cs-session-list"></div>
+          </div>
+
+          <div class="card">
+            <h3>🧤 Goalkeeper Roster</h3>
+            <div style="display:flex;gap:8px;margin-bottom:8px">
+              <input id="cs-gk-name" class="input" placeholder="GK Name">
+              <select id="cs-gk-age" class="input" style="max-width:95px"><option>U12</option><option selected>U16</option><option>U18</option><option>Senior</option></select>
+            </div>
+            <div style="display:flex;gap:8px;margin-bottom:8px">
+              <input id="cs-gk-note" class="input" placeholder="Technical note...">
+              <button class="btn btn-primary" onclick="CoachModule.addGk()" data-i18n="addGk">➕ إضافة حارس</button>
+            </div>
+            <div id="cs-roster-list"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- Mobile Bottom Navigation -->
+<nav class="mobile-nav">
+  <button class="active" data-page="home" onclick="goPage('home')"><span class="ic">🏠</span><span data-i18n="navHome">الرئيسية</span></button>
+  <button data-page="training" onclick="goPage('training')"><span class="ic">🧤</span><span data-i18n="navTraining">التدريب</span></button>
+  <button data-page="tactical" onclick="goPage('tactical')"><span class="ic">📐</span><span data-i18n="navTactical">التكتيك</span></button>
+  <button data-page="video" onclick="goPage('video')"><span class="ic">🎥</span><span data-i18n="navVideo">الفيديو</span></button>
+  <button data-page="perf" onclick="goPage('perf')"><span class="ic">📊</span><span data-i18n="navPerf">الأداء</span></button>
+  <button data-page="coach" onclick="goPage('coach')"><span class="ic">👨‍🏫</span><span data-i18n="navCoach">المدرب</span></button>
+</nav>
+
+<!-- Pitch Timer Modal -->
+<div id="timer-modal" class="modal hidden" onclick="if(event.target===this) CoachModule.closeTimer()">
+  <div class="modal-box">
+    <h3 id="pt-title" style="margin:0 0 8px">Pitch Timer</h3>
+    <div id="pt-phase" style="font-weight:800;color:var(--accent)">🔥 WORK</div>
+    <div id="pt-clock" class="timer-big">00:30</div>
+    <div id="pt-round" style="color:var(--text-dim);font-size:13px;margin-bottom:12px">1 / 6</div>
+    <div style="display:flex;gap:6px;justify-content:center;margin-bottom:12px">
+      <button class="btn btn-sm" onclick="CoachModule.setPreset(30,15,6)">30s/15s</button>
+      <button class="btn btn-sm" onclick="CoachModule.setPreset(45,15,6)">45s/15s</button>
+      <button class="btn btn-sm" onclick="CoachModule.setPreset(60,30,5)">60s/30s</button>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-primary" style="flex:1" onclick="CoachModule.toggleTimer()">▶ Start / Pause</button>
+      <button class="btn" onclick="CoachModule.resetTimer()">↺</button>
+      <button class="btn" onclick="CoachModule.closeTimer()">✕</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/i18n.js"></script>
+<script src="js/data.js"></script>
+<script src="js/radar.js"></script>
+<script src="js/tactical.js"></script>
+<script src="js/video.js"></script>
+<script src="js/coach.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
